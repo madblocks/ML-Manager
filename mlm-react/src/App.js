@@ -1,25 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
+import {DataContext} from './DataContext'
+import Login from './components/Login'
+import Main from './components/Main'
+import Header from './components/Header'
+import Nav from './components/Nav'
+import {Route, Routes} from 'react-router-dom'
+import{useState, useEffect} from 'react'
 
 function App() {
+  const [user, setUser] = useState([])
+  const [authenticated, setAuth] = useState('username')
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <DataContext.Provider
+      value = {{
+        user, setUser,
+        authenticated, setAuth
+      }}>  
+      <div className="App">
+        <main>
+          <Routes>
+            <Route path='/' element={<Main/>}/>
+            <Route path='/login' element={<Login/>}/>
+          </Routes>
+        </main>
+      </div>
+    </DataContext.Provider>
   );
 }
 
 export default App;
+
+
+
